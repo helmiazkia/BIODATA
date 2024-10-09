@@ -47,6 +47,7 @@ class MainApp extends StatelessWidget {
               textAttribute('Alamat', biodata['addr'] ?? ''),
               SizedBox(height: 10),
               teksKotak(Colors.black38, 'Deskripsi'),
+              Text(biodata['desc'] ?? '',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,)
             ],
           ),
         ),
