@@ -26,22 +26,12 @@ class MainApp extends StatelessWidget {
         appBar: AppBar(title: Text("AplIkasi Biodata")),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(20),
-          child: Column(mainAxisAlignment:MainAxisAlignment.start,children: [
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
               teksKotak(Colors.black, biodata['name'] ?? ''),
-
-              SizedBox(
-                height: 10,
-              ),
-              teksKotak(Colors.black38, 'Deskripsi'),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
               Image(image: AssetImage('assets/${biodata["image"] ?? ''}')),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Row(
                 children: [
                   btnContact(Icons.alternate_email, Colors.green[900]),
@@ -52,11 +42,16 @@ class MainApp extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
+              SizedBox(height: 10),
               textAttribute('Hobby', biodata['hobby'] ?? ''),
               textAttribute('Alamat', biodata['addr'] ?? ''),
-            ]),
+              SizedBox(height: 10),
+              teksKotak(Colors.black38, 'Deskripsi'),
+            ],
+          ),
         ),
-      );
+      ),
+    );
   }
 
   Container teksKotak(Color bgColor, String teks) {
@@ -75,6 +70,7 @@ class MainApp extends StatelessWidget {
       ),
     );
   }
+
   Row textAttribute(String judul, String teks) {
     return Row(
       children: [
