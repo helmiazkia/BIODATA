@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MainApp());
@@ -34,9 +35,12 @@ class MainApp extends StatelessWidget {
               SizedBox(height: 10),
               Row(
                 children: [
-                  btnContact(Icons.alternate_email, Colors.green[900]),
-                  btnContact(Icons.mark_email_read, Colors.blueAccent),
-                  btnContact(Icons.phone, Colors.deepPurple),
+                  btnContact(Icons.alternate_email, Colors.green[900],
+                      "mailto:${biodata['email']}"),
+                  btnContact(Icons.mark_email_read, Colors.blueAccent,
+                      "https://wa.me/${biodata['phone']}"),
+                  btnContact(Icons.phone, Colors.deepPurple,
+                      "tel:${biodata['phone']}"),
                 ],
               ),
               SizedBox(
@@ -47,7 +51,11 @@ class MainApp extends StatelessWidget {
               textAttribute('Alamat', biodata['addr'] ?? ''),
               SizedBox(height: 10),
               teksKotak(Colors.black38, 'Deskripsi'),
-              Text(biodata['desc'] ?? '',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,)
+              Text(
+                biodata['desc'] ?? '',
+                style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.center,
+              )
             ],
           ),
         ),
@@ -94,10 +102,12 @@ class MainApp extends StatelessWidget {
     );
   }
 
-  Expanded btnContact(IconData icon, var color) {
+  Expanded btnContact(IconData icon, var color, String url) {
     return Expanded(
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          launch(url);
+        },
         child: Icon(icon),
         style: ElevatedButton.styleFrom(
             shape: StadiumBorder(),
@@ -105,5 +115,11 @@ class MainApp extends StatelessWidget {
             foregroundColor: Colors.white),
       ),
     );
+  }
+
+  void launch(String uri) async {
+    if (!await launchUrl(Uri.parse(uri))) {
+      throw Exception('Tidak dapat memanggil : $uri');
+    }
   }
 }
